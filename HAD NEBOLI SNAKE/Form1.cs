@@ -20,6 +20,7 @@ namespace HAD_NEBOLI_SNAKE
         // obtiznostnik = 0... přeskočí se 0 ticků, rychlost je maximální
         private int obtiznostnik;
         private int tmpObt;
+        private Direction tmpSmer;
 
         public Form1()
         {
@@ -109,11 +110,16 @@ namespace HAD_NEBOLI_SNAKE
             //Zkontroluje jestli je game over
             if (Settings.KonecHry || praveZapnuto)
             {
-                //Zkontroluje jestli je enter stlačen
+                //Zkontroluje jestli je enter nebo mezerník stlačen
                 if (Input.KeyPressed(Keys.Enter) || Input.KeyPressed(Keys.Space))
                 {
                     if (praveZapnuto) praveZapnuto = !praveZapnuto;
                     StartGame();
+                }
+                //Zkontroluje jestli je escape stlačen
+                if (Input.KeyPressed(Keys.Enter) || Input.KeyPressed(Keys.Space))
+                {
+                    Application.Exit();
                 }
             }
             else
@@ -123,13 +129,13 @@ namespace HAD_NEBOLI_SNAKE
                     Smrt();
                 }
                 if ((Input.KeyPressed(Keys.Right) || Input.KeyPressed(Keys.D)) && Settings.směr != Direction.Left)
-                    Settings.směr = Direction.Right;
+                    tmpSmer = Direction.Right;
                 else if ((Input.KeyPressed(Keys.Left) || Input.KeyPressed(Keys.A)) && Settings.směr != Direction.Right)
-                    Settings.směr = Direction.Left;
+                    tmpSmer = Direction.Left;
                 else if ((Input.KeyPressed(Keys.Up) || Input.KeyPressed(Keys.W)) && Settings.směr != Direction.Down)
-                    Settings.směr = Direction.Up;
+                    tmpSmer = Direction.Up;
                 else if ((Input.KeyPressed(Keys.Down) || Input.KeyPressed(Keys.S)) && Settings.směr != Direction.Up)
-                    Settings.směr = Direction.Down;
+                    tmpSmer = Direction.Down;
 
                 // přeskakování ticků pro úpravu obtížnosti
                 // je to až tady aby se nemohlo stát že se přeskočí tick ve kterym se zmáčkla nějaká šipka (ignorovala by se, což nechceme žeano)
@@ -145,6 +151,7 @@ namespace HAD_NEBOLI_SNAKE
                         tmpObt = obtiznostnik;
                     }
                 }
+                Settings.směr = tmpSmer;
                 MovePlayer();
             }
 
