@@ -20,7 +20,7 @@ namespace HAD_NEBOLI_SNAKE
         // obtiznostnik = 0... přeskočí se 0 ticků, rychlost je maximální
         private int obtiznostnik;
         private int tmpObt;
-        private Direction tmpSmer;
+        private Direction tmpSmer = Direction.Down;
 
         public Form1()
         {
@@ -117,7 +117,7 @@ namespace HAD_NEBOLI_SNAKE
                     StartGame();
                 }
                 //Zkontroluje jestli je escape stlačen
-                if (Input.KeyPressed(Keys.Enter) || Input.KeyPressed(Keys.Space))
+                if (Input.KeyPressed(Keys.Escape))
                 {
                     Application.Exit();
                 }
@@ -126,6 +126,7 @@ namespace HAD_NEBOLI_SNAKE
             {
                 if (Input.KeyPressed(Keys.Escape))
                 {
+                    Input.ChangeState(Keys.Escape, false); // aby se to rovnou cely nevyplo
                     Smrt();
                 }
                 if ((Input.KeyPressed(Keys.Right) || Input.KeyPressed(Keys.D)) && Settings.směr != Direction.Left)
