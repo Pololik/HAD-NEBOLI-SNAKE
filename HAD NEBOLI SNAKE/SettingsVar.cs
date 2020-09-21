@@ -14,13 +14,6 @@ namespace HAD_NEBOLI_SNAKE
         Right
     };
 
-    public enum DifficultyEnum
-    {
-        Easy,
-        Medium,
-        Hard
-    }
-
     public class SettingsVar
     {
         // velikost kuliček, bylo by super kdyby velikost hrací plochy byla dělitelná tímto číslem
@@ -28,13 +21,7 @@ namespace HAD_NEBOLI_SNAKE
         public static int MapHeight;
 
 
-        // Počet bodů za jedno ovoce
-        public static int BodyEasy { get; set; }
-        public static int BodyMed { get; set; }
-        public static int BodyHard { get; set; }
-
         public static int FoodCount { get; set; }
-
         public static int Score { get; set; }
         public static int Difficulty { get; set; }
         public static Direction Direction { get; set; }
@@ -44,9 +31,6 @@ namespace HAD_NEBOLI_SNAKE
         {
             MapWidth = 60;
             MapHeight = 40;
-            BodyEasy = 125;
-            BodyMed = 150;
-            BodyHard = 175;
 
             // další nemá moc smysl měnit
             FoodCount = 0;

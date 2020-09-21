@@ -66,7 +66,7 @@
             // 
             this.labelScore.AutoSize = true;
             this.labelScore.Font = new System.Drawing.Font("Verdana", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScore.Location = new System.Drawing.Point(1020, 13);
+            this.labelScore.Location = new System.Drawing.Point(916, 10);
             this.labelScore.Name = "labelScore";
             this.labelScore.Size = new System.Drawing.Size(154, 45);
             this.labelScore.TabIndex = 0;
@@ -74,9 +74,8 @@
             // 
             // labelScore0
             // 
-            this.labelScore0.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScore0.Font = new System.Drawing.Font("Verdana", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScore0.Location = new System.Drawing.Point(1167, 14);
+            this.labelScore0.Location = new System.Drawing.Point(1085, 10);
             this.labelScore0.Name = "labelScore0";
             this.labelScore0.Size = new System.Drawing.Size(178, 50);
             this.labelScore0.TabIndex = 0;
@@ -177,7 +176,7 @@
             this.panelSettings.Controls.Add(this.labelSettings);
             this.panelSettings.Controls.Add(this.panelDiffs);
             this.panelSettings.Controls.Add(this.checkboxSettingsWalls);
-            this.panelSettings.Location = new System.Drawing.Point(1028, 175);
+            this.panelSettings.Location = new System.Drawing.Point(924, 172);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(218, 208);
             this.panelSettings.TabIndex = 10;
@@ -186,7 +185,7 @@
             // 
             this.labelControls.AutoSize = true;
             this.labelControls.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControls.Location = new System.Drawing.Point(1033, 431);
+            this.labelControls.Location = new System.Drawing.Point(929, 428);
             this.labelControls.Name = "labelControls";
             this.labelControls.Size = new System.Drawing.Size(94, 23);
             this.labelControls.TabIndex = 11;
@@ -196,7 +195,7 @@
             // 
             this.labelControls0.AutoSize = true;
             this.labelControls0.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControls0.Location = new System.Drawing.Point(1034, 457);
+            this.labelControls0.Location = new System.Drawing.Point(930, 454);
             this.labelControls0.Name = "labelControls0";
             this.labelControls0.Size = new System.Drawing.Size(162, 36);
             this.labelControls0.TabIndex = 12;
@@ -206,7 +205,7 @@
             // 
             this.labelFoodCount.AutoSize = true;
             this.labelFoodCount.Font = new System.Drawing.Font("Verdana", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFoodCount.Location = new System.Drawing.Point(1019, 64);
+            this.labelFoodCount.Location = new System.Drawing.Point(915, 61);
             this.labelFoodCount.Name = "labelFoodCount";
             this.labelFoodCount.Size = new System.Drawing.Size(256, 45);
             this.labelFoodCount.TabIndex = 14;
@@ -214,9 +213,8 @@
             // 
             // labelFoodCount0
             // 
-            this.labelFoodCount0.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelFoodCount0.Font = new System.Drawing.Font("Verdana", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFoodCount0.Location = new System.Drawing.Point(1259, 65);
+            this.labelFoodCount0.Location = new System.Drawing.Point(1177, 61);
             this.labelFoodCount0.Name = "labelFoodCount0";
             this.labelFoodCount0.Size = new System.Drawing.Size(86, 50);
             this.labelFoodCount0.TabIndex = 15;
@@ -227,7 +225,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1360, 620);
+            this.ClientSize = new System.Drawing.Size(1269, 620);
             this.Controls.Add(this.labelFoodCount0);
             this.Controls.Add(this.labelFoodCount);
             this.Controls.Add(this.labelControls0);
@@ -240,7 +238,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Form1";
-            this.Text = "HAD NEBOLI SNAKE";
+            this.Text = SettingsConst.String_WindowTitle;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pbGameField)).EndInit();
