@@ -20,8 +20,7 @@ namespace HAD_NEBOLI_SNAKE
         // obtiznostnik = 0... přeskočí se 0 ticků, rychlost je maximální
         private int obtiznostnik;
         private int tmpObt;
-        private Direction tmpSmer = Direction.Down;
-
+       
         public Form1()
         {
             InitializeComponent();
@@ -38,9 +37,7 @@ namespace HAD_NEBOLI_SNAKE
 
             //neZapne novou hru
             //StartGame();
-
-            // počká než zmáčkneš entr protože to je normální
-            lblGameOver.Text = "ČUS PÍČUS ZANDEJ ENTR PRO HRANÍ";
+            lblGameOver.Text = "Stiskni ENTER pro start hry";
 
         }
         private void NastavObtiznost()
@@ -88,7 +85,7 @@ namespace HAD_NEBOLI_SNAKE
             Circle head = new Circle { X = 10, Y = 5 };
             Snake.Add(head);
 
-
+            labelpocetj.Text = Settings.PocetJidla.ToString();
             labelScore.Text = Settings.Score.ToString();
             GenerateFood();
         }
@@ -110,33 +107,27 @@ namespace HAD_NEBOLI_SNAKE
             //Zkontroluje jestli je game over
             if (Settings.KonecHry || praveZapnuto)
             {
-                //Zkontroluje jestli je enter nebo mezerník stlačen
+                //Zkontroluje jestli je enter stlačen
                 if (Input.KeyPressed(Keys.Enter) || Input.KeyPressed(Keys.Space))
                 {
                     if (praveZapnuto) praveZapnuto = !praveZapnuto;
                     StartGame();
-                }
-                //Zkontroluje jestli je escape stlačen
-                if (Input.KeyPressed(Keys.Escape))
-                {
-                    Application.Exit();
                 }
             }
             else
             {
                 if (Input.KeyPressed(Keys.Escape))
                 {
-                    Input.ChangeState(Keys.Escape, false); // aby se to rovnou cely nevyplo
                     Smrt();
                 }
                 if ((Input.KeyPressed(Keys.Right) || Input.KeyPressed(Keys.D)) && Settings.směr != Direction.Left)
-                    tmpSmer = Direction.Right;
+                    Settings.směr = Direction.Right;
                 else if ((Input.KeyPressed(Keys.Left) || Input.KeyPressed(Keys.A)) && Settings.směr != Direction.Right)
-                    tmpSmer = Direction.Left;
+                    Settings.směr = Direction.Left;
                 else if ((Input.KeyPressed(Keys.Up) || Input.KeyPressed(Keys.W)) && Settings.směr != Direction.Down)
-                    tmpSmer = Direction.Up;
+                    Settings.směr = Direction.Up;
                 else if ((Input.KeyPressed(Keys.Down) || Input.KeyPressed(Keys.S)) && Settings.směr != Direction.Up)
-                    tmpSmer = Direction.Down;
+                    Settings.směr = Direction.Down;
 
                 // přeskakování ticků pro úpravu obtížnosti
                 // je to až tady aby se nemohlo stát že se přeskočí tick ve kterym se zmáčkla nějaká šipka (ignorovala by se, což nechceme žeano)
@@ -152,7 +143,6 @@ namespace HAD_NEBOLI_SNAKE
                         tmpObt = obtiznostnik;
                     }
                 }
-                Settings.směr = tmpSmer;
                 MovePlayer();
             }
 
@@ -174,9 +164,9 @@ namespace HAD_NEBOLI_SNAKE
                     Brush snakeColour;
                     // volba barvy
                     if (i == 0)
-                        snakeColour = Brushes.Black; // hlava je černá
+                        snakeColour = Brushes.DarkMagenta; // hlava je černá
                     else
-                        snakeColour = Brushes.Green; // tělo zelený
+                        snakeColour = Brushes.DarkOrange; // tělo zelený
 
                     // vybarví kolečko
                     canvas.FillEllipse(snakeColour,
@@ -186,7 +176,7 @@ namespace HAD_NEBOLI_SNAKE
                 }
 
                 //Nakreslí jídlo
-                canvas.FillEllipse(Brushes.Red,
+                canvas.FillEllipse(Brushes.ForestGreen,
                     new Rectangle(food.X * Settings.Šířka,
                          food.Y * Settings.Výška, Settings.Šířka, Settings.Výška));
 
@@ -196,7 +186,7 @@ namespace HAD_NEBOLI_SNAKE
         {
             for (int i = Snake.Count - 1; i >= 0; i--)
             {
-                //Move head
+                //Pohyb hlavy
                 if (i == 0)
                 {
                     switch (Settings.směr)
@@ -325,15 +315,21 @@ namespace HAD_NEBOLI_SNAKE
             labelScore.Text = Settings.Score.ToString();
 
             GenerateFood();
+
+            //Updatuje Score
+            Settings.PocetJidla += Settings.Jidlo;
+            labelpocetj.Text = Settings.PocetJidla.ToString();
         }
+
+        
 
         private void Smrt()
         {
             Settings.KonecHry = true;
 
             string gameOver =   "KONEC HRY\n\n" +
-                                "TVOJE FINÁLNÍ SKÓRE JE:\n" +
-                                Settings.Score +
+                                "TVOJE FINÁLNÍ SKÓRE JE:  " +
+                                Settings.Score + "\n\nSNĚDL JSI:  " + Settings.PocetJidla + " JÍDLA" +
                                 "\n\nSTISKNI ENTER PRO DALŠÍ POKUS";
             lblGameOver.Text = gameOver;
 
@@ -341,6 +337,16 @@ namespace HAD_NEBOLI_SNAKE
         }
 
         private void labelControls2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblGameOver_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelScore_Click(object sender, EventArgs e)
         {
 
         }

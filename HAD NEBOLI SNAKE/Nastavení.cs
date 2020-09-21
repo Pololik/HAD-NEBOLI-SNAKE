@@ -36,6 +36,9 @@ namespace HAD_NEBOLI_SNAKE
         public static int BodyMed { get; set; }
         public static int BodyHard { get; set; }
 
+        public static int PocetJidla { get; set; }
+
+        public static int Jidlo { get; set; }
         public static int Score { get; set; }
         public static Difficulty Obtiznost { get; set; }
         public static bool KonecHry { get; set; }
@@ -47,11 +50,13 @@ namespace HAD_NEBOLI_SNAKE
             Šířka = 15;
             Výška = 15;
             Rychlost = 100;
-            BodyEasy = 100;
-            BodyMed = 250;
-            BodyHard = 600;
+            BodyEasy = 125;
+            BodyMed = 150;
+            BodyHard = 175;
+            Jidlo = 1;
 
             // další nemá moc smysl měnit
+            PocetJidla = 0;
             Score = 0;
             Obtiznost = Difficulty.Medium;
             KonecHry = false;

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pbHracipole = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.labelScore = new System.Windows.Forms.Label();
@@ -45,6 +46,8 @@
             this.labelControls = new System.Windows.Forms.Label();
             this.labelControls1 = new System.Windows.Forms.Label();
             this.labelControls2 = new System.Windows.Forms.Label();
+            this.lblpocetjidla = new System.Windows.Forms.Label();
+            this.labelpocetj = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbHracipole)).BeginInit();
             this.panelDiff.SuspendLayout();
             this.panelSettings.SuspendLayout();
@@ -80,6 +83,7 @@
             this.labelScore.TabIndex = 0;
             this.labelScore.Text = "0";
             this.labelScore.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelScore.Click += new System.EventHandler(this.labelScore_Click);
             // 
             // lblGameOver
             // 
@@ -91,6 +95,7 @@
             this.lblGameOver.Size = new System.Drawing.Size(231, 49);
             this.lblGameOver.TabIndex = 0;
             this.lblGameOver.Text = "lblGameOver";
+            this.lblGameOver.Click += new System.EventHandler(this.lblGameOver_Click);
             // 
             // checkBoxSettingsZdi
             // 
@@ -211,11 +216,34 @@
             this.labelControls2.Text = "Konec Hry: ESC";
             this.labelControls2.Click += new System.EventHandler(this.labelControls2_Click);
             // 
+            // lblpocetjidla
+            // 
+            this.lblpocetjidla.AutoSize = true;
+            this.lblpocetjidla.Font = new System.Drawing.Font("Comic Sans MS", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpocetjidla.Location = new System.Drawing.Point(1019, 64);
+            this.lblpocetjidla.Name = "lblpocetjidla";
+            this.lblpocetjidla.Size = new System.Drawing.Size(228, 51);
+            this.lblpocetjidla.TabIndex = 14;
+            this.lblpocetjidla.Text = "Počet jídla:";
+            // 
+            // labelpocetj
+            // 
+            this.labelpocetj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelpocetj.Font = new System.Drawing.Font("Comic Sans MS", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelpocetj.Location = new System.Drawing.Point(1242, 65);
+            this.labelpocetj.Name = "labelpocetj";
+            this.labelpocetj.Size = new System.Drawing.Size(103, 50);
+            this.labelpocetj.TabIndex = 15;
+            this.labelpocetj.Text = "0";
+            this.labelpocetj.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1357, 524);
+            this.Controls.Add(this.labelpocetj);
+            this.Controls.Add(this.lblpocetjidla);
             this.Controls.Add(this.labelControls2);
             this.Controls.Add(this.labelControls1);
             this.Controls.Add(this.labelControls);
@@ -224,10 +252,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelScore);
             this.Controls.Add(this.pbHracipole);
-            this.Icon = global::HAD_NEBOLI_SNAKE.Properties.Resources.Ikonka;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Form1";
-            this.Text = "ŽÍŽALA";
+            this.Text = "HAD NEBOLI SNAKE ";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pbHracipole)).EndInit();
@@ -258,6 +286,8 @@
         private System.Windows.Forms.Label labelControls;
         private System.Windows.Forms.Label labelControls1;
         private System.Windows.Forms.Label labelControls2;
+        private System.Windows.Forms.Label lblpocetjidla;
+        private System.Windows.Forms.Label labelpocetj;
     }
 }
 
