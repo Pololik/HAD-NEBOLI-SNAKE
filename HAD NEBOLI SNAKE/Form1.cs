@@ -16,45 +16,42 @@ namespace HAD_NEBOLI_SNAKE
         private List<Circle> Snake = new List<Circle>();
         private Circle food = new Circle();
         // počet ticků které se při pohybování hadem přeskakujou, tim se snižuje jeho rychlost
-        // obtiznostnik = 0... přeskočí se 0 ticků, rychlost je maximální
-        private int obtiznostnik;
         private int tmpObt;
         private Direction tmpDir;
         private bool GameRunning = false;
+        private float UnitWidth;
+        private float UnitHeight;
 
         private Difficulty[] diffs = new Difficulty[SettingsConst.Num_DifficultyCount];
        
         public Form1()
         {
-            diffs.Append(new Difficulty("Lehká", 100, 4));
-            diffs.Append(new Difficulty("Střední", 125, 2));
-            diffs.Append(new Difficulty("Těžká", 150, 1));
+            diffs[0] = new Difficulty("Lehká", 100, 4);
+            diffs[1] = new Difficulty("Střední", 125, 2);
+            diffs[2] = new Difficulty("Těžká", 150, 1);
 
             InitializeComponent();
 
             labelGameOver.Text = SettingsConst.String_Start;
 
-            //Nastaví hrací rychlost a game timer
+            // nastaví game timer
             GameTimer.Interval = SettingsConst.Num_TickInterval;
             GameTimer.Tick += UpdateScreen;
             GameTimer.Start();
         }
-        private void NastavObtiznost()
+        private void SetDifficulty()
         {
-            if (radioButtonSettings3.Checked)
+            if (radioButtonSettings1.Checked)
             {
-                obtiznostnik = 1;
-                SettingsVar.Obtiznost = DifficultyEnum.Hard;
+                SettingsVar.Difficulty = 0;
             }
             else if (radioButtonSettings2.Checked)
             {
-                obtiznostnik = 2;
-                SettingsVar.Obtiznost = DifficultyEnum.Medium;
+                SettingsVar.Difficulty = 1;
             }
-            else if (radioButtonSettings1.Checked)
+            else if (radioButtonSettings3.Checked)
             {
-                obtiznostnik = 4;
-                SettingsVar.Obtiznost = DifficultyEnum.Easy;
+                SettingsVar.Difficulty = 2;
             }
         }
 
@@ -76,13 +73,15 @@ namespace HAD_NEBOLI_SNAKE
             HideStuff();
             pbGameField.Select(); // odznačí nastavení aby se po konci hry omylem nezměnilo
 
-            //Nastaví nastavení na defaultní - smer pohledu, skore...
+            // nastaví nastavení na defaultní - směr pohledu, skóre...
             new SettingsVar();
-            NastavObtiznost();
+            SetDifficulty();
             SettingsVar.Walls = checkboxSettingsWalls.Checked;
             tmpDir = SettingsVar.Direction;
+            UnitWidth = pbGameField.Width / SettingsVar.MapWidth;
+            UnitHeight = pbGameField.Height / SettingsVar.MapHeight;
 
-            //Vytvoří novou část hada
+            // vytvoří novou část hada
             Snake.Clear();
             Circle head = new Circle { X = 10, Y = 5 };
             Snake.Add(head);
@@ -92,14 +91,23 @@ namespace HAD_NEBOLI_SNAKE
             GenerateFood();
         }
 
-        //Položí na hrací pole náhodný objekt
+        // položí ovoce na náhodnou pozici
         private void GenerateFood()
         {
-            int maxXPos = pbGameField.Size.Width / SettingsVar.Šířka;
-            int maxYPos = pbGameField.Size.Height / SettingsVar.Výška;
+            bool isOutsideSnake = false;
+            while (isOutsideSnake != true)
+            {
+                Random random = new Random();
+                food = new Circle { X = random.Next(0, SettingsVar.MapWidth), Y = random.Next(0, SettingsVar.MapHeight) };
+                foreach (Circle x in Snake)
+                {
+                    if (food.X != x.X || food.Y != x.Y)
+                    {
+                        isOutsideSnake = true;
+                    }
+                }
+            }
 
-            Random random = new Random();
-            food = new Circle { X = random.Next(0, maxXPos), Y = random.Next(0, maxYPos) };
         }
 
         private void UpdateScreen(object sender, EventArgs e)
@@ -136,8 +144,7 @@ namespace HAD_NEBOLI_SNAKE
                     tmpDir = Direction.Down;
 
                 // přeskakování ticků pro úpravu obtížnosti
-                // je to až tady aby se nemohlo stát že se přeskočí tick ve kterym se zmáčkla nějaká šipka (ignorovala by se, což nechceme žeano)
-                if (obtiznostnik > 0)
+                if (diffs[SettingsVar.Difficulty].SkipCount > 0)
                 {
                     if (tmpObt > 0)
                     {
@@ -146,7 +153,7 @@ namespace HAD_NEBOLI_SNAKE
                     }
                     else
                     {
-                        tmpObt = obtiznostnik;
+                        tmpObt = diffs[SettingsVar.Difficulty].SkipCount;
                     }
                 }
                 SettingsVar.Direction = tmpDir;
@@ -154,12 +161,13 @@ namespace HAD_NEBOLI_SNAKE
             }
 
             pbGameField.Invalidate();
-
         }
 
         private void pbGameField_Paint(object sender, PaintEventArgs e)
         {
             Graphics canvas = e.Graphics;
+            int tmpWidth = Convert.ToInt32(UnitWidth);
+            int tmpHeight = Convert.ToInt32(UnitHeight);
 
             if (GameRunning)
             {
@@ -175,15 +183,15 @@ namespace HAD_NEBOLI_SNAKE
 
                     // vybarví kolečko
                     canvas.FillEllipse(snakeColour,
-                        new Rectangle(Snake[i].X * SettingsVar.Šířka,
-                                      Snake[i].Y * SettingsVar.Výška,
-                                      SettingsVar.Šířka, SettingsVar.Výška));
+                        new Rectangle(Snake[i].X * tmpWidth,
+                                      Snake[i].Y * tmpHeight,
+                                      tmpWidth, tmpHeight));
                 }
 
                 //Nakreslí jídlo
                 canvas.FillEllipse(Brushes.ForestGreen,
-                    new Rectangle(food.X * SettingsVar.Šířka,
-                         food.Y * SettingsVar.Výška, SettingsVar.Šířka, SettingsVar.Výška));
+                    new Rectangle(food.X * tmpWidth,
+                         food.Y * tmpHeight, tmpWidth, tmpHeight));
 
             }
         }
@@ -191,7 +199,7 @@ namespace HAD_NEBOLI_SNAKE
         {
             for (int i = Snake.Count - 1; i >= 0; i--)
             {
-                //Pohyb hlavy
+                // pohyb hlavy
                 if (i == 0)
                 {
                     switch (SettingsVar.Direction)
@@ -210,13 +218,8 @@ namespace HAD_NEBOLI_SNAKE
                             break;
                     }
 
-
-                    //Dostat maximum X and Y Pos
-                    int maxXPos = pbGameField.Size.Width / SettingsVar.Šířka;
-                    int maxYPos = pbGameField.Size.Height / SettingsVar.Výška;
-
-                    //Detekuje kolize s okrajema. když nejsou zdi tak teleportuje na druhou stranu
-                    if (Snake[i].X < 0 || Snake[i].Y < 0 || Snake[i].X >= maxXPos || Snake[i].Y >= maxYPos)
+                    // detekuje kolize s okrajema. když nejsou zdi tak teleportuje na druhou stranu
+                    if (Snake[i].X < 0 || Snake[i].Y < 0 || Snake[i].X >= SettingsVar.MapWidth || Snake[i].Y >= SettingsVar.MapHeight)
                     {
                         if (SettingsVar.Walls)
                         {
@@ -226,24 +229,24 @@ namespace HAD_NEBOLI_SNAKE
                         {
                             if (Snake[i].X < 0)
                             {
-                                Snake[i].X = maxXPos - 1;
+                                Snake[i].X = SettingsVar.MapWidth - 1;
                             }
                             else if (Snake[i].Y < 0)
                             {
-                                Snake[i].Y = maxYPos - 1;
+                                Snake[i].Y = SettingsVar.MapHeight - 1;
                             }
-                            else if (Snake[i].X >= maxXPos)
+                            else if (Snake[i].X >= SettingsVar.MapWidth)
                             {
                                 Snake[i].X = 0;
                             }
-                            else if (Snake[i].Y >= maxYPos)
+                            else if (Snake[i].Y >= SettingsVar.MapHeight)
                             {
                                 Snake[i].Y = 0;
                             }
                         }
                     }
 
-                    //Detekuje kolize s tělem
+                    // detekuje kolize s tělem
                     for (int j = 1; j < Snake.Count; j++)
                     {
                         if (Snake[i].X == Snake[j].X &&
@@ -253,7 +256,7 @@ namespace HAD_NEBOLI_SNAKE
                         }
                     }
 
-                    //Detekuje kolize s jídlem
+                    // detekuje kolize s jídlem
                     if (Snake[0].X == food.X && Snake[0].Y == food.Y)
                     {
                         EatFood();
@@ -262,7 +265,7 @@ namespace HAD_NEBOLI_SNAKE
                 }
                 else
                 {
-                    //Pohyb těla
+                    // pohyb těla
                     Snake[i].X = Snake[i - 1].X;
                     Snake[i].Y = Snake[i - 1].Y;
                 }
@@ -289,7 +292,7 @@ namespace HAD_NEBOLI_SNAKE
 
         private void EatFood()
         {
-            //Přidá kruh k tělu
+            // přidá kruh k tělu
             Circle circle = new Circle
             {
                 X = Snake[Snake.Count - 1].X,
@@ -297,20 +300,10 @@ namespace HAD_NEBOLI_SNAKE
             };
             Snake.Add(circle);
 
-            //Updatuje Score
+            // updatuje skóre
             int tmpScore = 0;
-            switch (SettingsVar.Obtiznost)
-            {
-                case DifficultyEnum.Easy:
-                    tmpScore += SettingsVar.BodyEasy;
-                    break;
-                case DifficultyEnum.Medium:
-                    tmpScore += SettingsVar.BodyMed;
-                    break;
-                case DifficultyEnum.Hard:
-                    tmpScore += SettingsVar.BodyHard;
-                    break;
-            }
+            tmpScore += diffs[SettingsVar.Difficulty].ScoreInc;
+
             if (SettingsVar.Walls)
             {
                 tmpScore *= SettingsConst.Num_WallsMultiplier;
@@ -321,7 +314,7 @@ namespace HAD_NEBOLI_SNAKE
 
             GenerateFood();
 
-            //Updatuje Score
+            // updatuje jídla
             SettingsVar.FoodCount++;
             labelFoodCount0.Text = SettingsVar.FoodCount.ToString();
         }
