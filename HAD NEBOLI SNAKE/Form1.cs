@@ -33,6 +33,7 @@ namespace HAD_NEBOLI_SNAKE
             InitializeComponent();
 
             //----- je strašnej odpad ale líp to neumim :(, ve Form1.Designer.cs se to furt přepisuje
+            Icon = Properties.Resources.Ikonka;
             Text = SettingsConst.String_WindowTitle;
             labelControls0.Text = SettingsConst.String_Controls;
             checkboxSettingsWalls.Text = SettingsConst.String_SettingWalls;

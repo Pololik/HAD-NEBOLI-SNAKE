@@ -237,7 +237,7 @@ namespace HAD_NEBOLI_SNAKE
             this.Controls.Add(this.labelScore);
             this.Controls.Add(this.labelScore0);
             this.Controls.Add(this.pbGameField);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Properties.Resources.Ikonka;
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "HAD NEBOLI SNAKE";
