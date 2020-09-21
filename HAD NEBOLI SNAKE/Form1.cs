@@ -32,6 +32,17 @@ namespace HAD_NEBOLI_SNAKE
 
             InitializeComponent();
 
+            //----- je strašnej odpad ale líp to neumim :(, ve Form1.Designer.cs se to furt přepisuje
+            Text = SettingsConst.String_WindowTitle;
+            labelControls0.Text = SettingsConst.String_Controls;
+            checkboxSettingsWalls.Text = SettingsConst.String_SettingWalls;
+            pbGameField.Width = SettingsConst.Num_GameWidth;
+            pbGameField.Height = SettingsConst.Num_GameHeight;
+            radioButtonSettings1.Text = diffs[0].Name;
+            radioButtonSettings2.Text = diffs[1].Name;
+            radioButtonSettings3.Text = diffs[2].Name;
+            //------------------------
+
             labelGameOver.Text = SettingsConst.String_Start;
 
             // nastaví game timer

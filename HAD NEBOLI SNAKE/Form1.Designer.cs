@@ -1,4 +1,6 @@
-﻿namespace HAD_NEBOLI_SNAKE
+﻿using System.Runtime.CompilerServices;
+
+namespace HAD_NEBOLI_SNAKE
 {
     partial class Form1
     {
@@ -75,9 +77,9 @@
             // labelScore0
             // 
             this.labelScore0.Font = new System.Drawing.Font("Verdana", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScore0.Location = new System.Drawing.Point(1085, 10);
+            this.labelScore0.Location = new System.Drawing.Point(1070, 13);
             this.labelScore0.Name = "labelScore0";
-            this.labelScore0.Size = new System.Drawing.Size(178, 50);
+            this.labelScore0.Size = new System.Drawing.Size(187, 45);
             this.labelScore0.TabIndex = 0;
             this.labelScore0.Text = "0";
             this.labelScore0.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -98,13 +100,13 @@
             this.checkboxSettingsWalls.AutoSize = true;
             this.checkboxSettingsWalls.Checked = true;
             this.checkboxSettingsWalls.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkboxSettingsWalls.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkboxSettingsWalls.Font = new System.Drawing.Font("Verdana", 14.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkboxSettingsWalls.Location = new System.Drawing.Point(10, 56);
             this.checkboxSettingsWalls.Name = "checkboxSettingsWalls";
-            this.checkboxSettingsWalls.Size = new System.Drawing.Size(212, 29);
+            this.checkboxSettingsWalls.Size = new System.Drawing.Size(195, 29);
             this.checkboxSettingsWalls.TabIndex = 0;
             this.checkboxSettingsWalls.TabStop = false;
-            this.checkboxSettingsWalls.Text = "Smrtelné okraje?";
+            this.checkboxSettingsWalls.Text = "Smrtelné okraje";
             // 
             // labelSettings
             // 
@@ -156,7 +158,7 @@
             this.labelDiffs.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDiffs.Location = new System.Drawing.Point(5, 0);
             this.labelDiffs.Name = "labelDiffs";
-            this.labelDiffs.Size = new System.Drawing.Size(111, 27);
+            this.labelDiffs.Size = new System.Drawing.Size(112, 27);
             this.labelDiffs.TabIndex = 0;
             this.labelDiffs.Text = "Obtížnost";
             // 
@@ -178,14 +180,14 @@
             this.panelSettings.Controls.Add(this.checkboxSettingsWalls);
             this.panelSettings.Location = new System.Drawing.Point(924, 172);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(218, 208);
+            this.panelSettings.Size = new System.Drawing.Size(218, 206);
             this.panelSettings.TabIndex = 10;
             // 
             // labelControls
             // 
             this.labelControls.AutoSize = true;
             this.labelControls.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControls.Location = new System.Drawing.Point(929, 428);
+            this.labelControls.Location = new System.Drawing.Point(929, 490);
             this.labelControls.Name = "labelControls";
             this.labelControls.Size = new System.Drawing.Size(94, 23);
             this.labelControls.TabIndex = 11;
@@ -195,7 +197,7 @@
             // 
             this.labelControls0.AutoSize = true;
             this.labelControls0.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControls0.Location = new System.Drawing.Point(930, 454);
+            this.labelControls0.Location = new System.Drawing.Point(930, 516);
             this.labelControls0.Name = "labelControls0";
             this.labelControls0.Size = new System.Drawing.Size(162, 36);
             this.labelControls0.TabIndex = 12;
@@ -205,18 +207,18 @@
             // 
             this.labelFoodCount.AutoSize = true;
             this.labelFoodCount.Font = new System.Drawing.Font("Verdana", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFoodCount.Location = new System.Drawing.Point(915, 61);
+            this.labelFoodCount.Location = new System.Drawing.Point(916, 55);
             this.labelFoodCount.Name = "labelFoodCount";
-            this.labelFoodCount.Size = new System.Drawing.Size(256, 45);
+            this.labelFoodCount.Size = new System.Drawing.Size(133, 45);
             this.labelFoodCount.TabIndex = 14;
-            this.labelFoodCount.Text = "Počet jídla:";
+            this.labelFoodCount.Text = "Jídlo:";
             // 
             // labelFoodCount0
             // 
             this.labelFoodCount0.Font = new System.Drawing.Font("Verdana", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFoodCount0.Location = new System.Drawing.Point(1177, 61);
+            this.labelFoodCount0.Location = new System.Drawing.Point(1048, 58);
             this.labelFoodCount0.Name = "labelFoodCount0";
-            this.labelFoodCount0.Size = new System.Drawing.Size(86, 50);
+            this.labelFoodCount0.Size = new System.Drawing.Size(209, 45);
             this.labelFoodCount0.TabIndex = 15;
             this.labelFoodCount0.Text = "0";
             this.labelFoodCount0.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -238,7 +240,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Form1";
-            this.Text = SettingsConst.String_WindowTitle;
+            this.Text = "HAD NEBOLI SNAKE";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pbGameField)).EndInit();
@@ -270,8 +272,6 @@
         private System.Windows.Forms.Label labelControls0;
         private System.Windows.Forms.Label labelFoodCount;
         private System.Windows.Forms.Label labelFoodCount0;
-
-
     }
 }
 
