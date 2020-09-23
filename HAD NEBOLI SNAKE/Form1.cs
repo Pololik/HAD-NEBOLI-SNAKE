@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 using System.Collections.Generic;
 using System.Collections;
 using System.ComponentModel;
@@ -28,11 +29,16 @@ namespace HAD_NEBOLI_SNAKE
         private Direction tmpDir;
         private List<Difficulty> Difficulties = new List<Difficulty>();
         private int HeartCount = 3;
-       
+
+
+        SoundPlayer BackgroundSound = new SoundPlayer(Properties.Resources.OST);
+        SoundPlayer DeathSound = new SoundPlayer(Properties.Resources.OST2);
+
         public Form1()
         {
             // každý postup levelem zvýší obtížnost
             int tmpScore = 100;
+
             Difficulties.Add(new Difficulty("Nejlehčí", tmpScore, 2));
             Difficulties.Add(new Difficulty("Lehká", tmpScore, 2));
             Difficulties.Add(new Difficulty("Střední", tmpScore, 2));
@@ -127,6 +133,7 @@ namespace HAD_NEBOLI_SNAKE
             GameRunning = true;
             HideStuff();
             pbGameField.Select(); // odznačí nastavení aby ho hráč po konci hry omylem nezměnil (zmáčknutím šipky/mezerníku)
+            BackgroundSound.Play();
             if (HeartCount < 1)
             {
                 HeartCount = 3;
@@ -422,8 +429,10 @@ namespace HAD_NEBOLI_SNAKE
         {
             GameRunning = false;
             Snake.Clear();
+            BackgroundSound.Stop();
             if (death)
             {
+                DeathSound.Play();
                 HeartCount--;
                 if (HeartCount > 0)
                 {

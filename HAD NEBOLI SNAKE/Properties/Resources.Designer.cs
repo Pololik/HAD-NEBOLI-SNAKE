@@ -89,5 +89,23 @@ namespace HAD_NEBOLI_SNAKE.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream OST {
+            get {
+                return ResourceManager.GetStream("OST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream OST2 {
+            get {
+                return ResourceManager.GetStream("OST2", resourceCulture);
+            }
+        }
     }
 }
