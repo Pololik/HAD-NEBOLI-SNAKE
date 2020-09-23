@@ -16,18 +16,35 @@ namespace HAD_NEBOLI_SNAKE
 
     public class SettingsVar
     {
-        // velikost kuliček, bylo by super kdyby velikost hrací plochy byla dělitelná tímto číslem
+        /// <summary>
+        /// Šířka mapy
+        /// </summary>
         public static int MapWidth;
+        /// <summary>
+        /// Výška mapy
+        /// </summary>
         public static int MapHeight;
 
+        /// <summary>
+        /// Souřadnice X na které had začíná
+        /// </summary>
         public static int StartingX;
+        /// <summary>
+        /// Souřadnice Y na které had začíná
+        /// </summary>
         public static int StartingY;
 
         public static int FoodCount { get; set; }
         public static int Score { get; set; }
+        /// <summary>
+        /// Počet bodů které je potřeba posbírat pro dokončení úrovně
+        /// </summary>
         public static int ScoreNext;
         public static int Difficulty { get; set; }
         public static Direction Direction { get; set; }
+        /// <summary>
+        /// TRUE aby naražení hada do kraje mapy hada zabilo
+        /// </summary>
         public static bool Edges { get; set; }
 
         public SettingsVar()
@@ -45,6 +62,10 @@ namespace HAD_NEBOLI_SNAKE
             Score = 0;
         }
 
+        /// <summary>
+        /// Načte nastavení z mapy
+        /// </summary>
+        /// <param name="Map"></param>
         public SettingsVar(Map Map)
         {
             MapWidth = Map.Width;

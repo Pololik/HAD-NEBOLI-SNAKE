@@ -40,51 +40,60 @@ namespace HAD_NEBOLI_SNAKE
             Difficulties.Add(new Difficulty("Těžká", tmpScore, 2));
             Difficulties.Add(new Difficulty("Nejtěžší", tmpScore, 2));
 
-            //------- přidá první mapu 60x40, kde had začíná na pozici [7,4], bez překážek -------
+            //------------------------------------ přidání map -----------------------------------
+            // přidá první mapu 60x40, kde had začíná na pozici [7,4], bez překážek
             List<MapObject> tmpObstacles = new List<MapObject>();
             Map tmpMap;
             tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 1000);
             Maps.Add(tmpMap);
 
-            tmpObstacles = new List<MapObject>();
-            tmpObstacles.Add(new MapObject(14, 4, 1, 32));
-            tmpObstacles.Add(new MapObject(59 - 14, 4, 1, 32));
+            tmpObstacles = new List<MapObject>
+            {
+                new MapObject(14, 4, 1, 32),
+                new MapObject(59 - 14, 4, 1, 32)
+            };
             tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 1400);
             Maps.Add(tmpMap);
 
-            tmpObstacles = new List<MapObject>();
-            tmpObstacles.Add(new MapObject(14, 24, 1, 10));
-            tmpObstacles.Add(new MapObject(30, 24, 1, 10));
-            tmpObstacles.Add(new MapObject(31, 33, 15, 1));
-            tmpObstacles.Add(new MapObject(59 - 14, 6, 1, 10));
-            tmpObstacles.Add(new MapObject(59 - 30, 6, 1, 10));
-            tmpObstacles.Add(new MapObject(14, 6, 15, 1));
+            tmpObstacles = new List<MapObject>
+            {
+                new MapObject(14, 24, 1, 10),
+                new MapObject(30, 24, 1, 10),
+                new MapObject(31, 33, 15, 1),
+                new MapObject(59 - 14, 6, 1, 10),
+                new MapObject(59 - 30, 6, 1, 10),
+                new MapObject(14, 6, 15, 1)
+            };
             tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 1700);
             Maps.Add(tmpMap);
 
-            tmpObstacles = new List<MapObject>();
-            tmpObstacles.Add(new MapObject(14, 24, 1, 9));
-            tmpObstacles.Add(new MapObject(59-14, 24, 1, 9));
-            tmpObstacles.Add(new MapObject(14, 33, 32, 1));
-            tmpObstacles.Add(new MapObject(14, 7, 1, 9));
-            tmpObstacles.Add(new MapObject(59 - 14, 7, 1, 9));
-            tmpObstacles.Add(new MapObject(14, 6, 32, 1));
+            tmpObstacles = new List<MapObject>
+            {
+                new MapObject(14, 24, 1, 9),
+                new MapObject(59 - 14, 24, 1, 9),
+                new MapObject(14, 33, 32, 1),
+                new MapObject(14, 7, 1, 9),
+                new MapObject(59 - 14, 7, 1, 9),
+                new MapObject(14, 6, 32, 1)
+            };
             tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 1900);
             Maps.Add(tmpMap);
 
-            tmpObstacles = new List<MapObject>();
-            tmpObstacles.Add(new MapObject(12, 0, 1, 23));
-            tmpObstacles.Add(new MapObject(12, 28, 1, 7));
-            tmpObstacles.Add(new MapObject(59-19, 34, 1, 6));
-            tmpObstacles.Add(new MapObject(12, 22, 29, 1));
-            tmpObstacles.Add(new MapObject(12, 28, 29, 1));
-            tmpObstacles.Add(new MapObject(12, 34, 29, 1));
-            tmpObstacles.Add(new MapObject(59-12, 5, 1, 7));
-            tmpObstacles.Add(new MapObject(59-12, 17, 1, 23));
-            tmpObstacles.Add(new MapObject(19, 0, 1, 6));
-            tmpObstacles.Add(new MapObject(19, 5, 29, 1));
-            tmpObstacles.Add(new MapObject(19, 11, 29, 1));
-            tmpObstacles.Add(new MapObject(19, 17, 29, 1));
+            tmpObstacles = new List<MapObject>
+            {
+                new MapObject(12, 0, 1, 23),
+                new MapObject(12, 28, 1, 7),
+                new MapObject(59 - 19, 34, 1, 6),
+                new MapObject(12, 22, 29, 1),
+                new MapObject(12, 28, 29, 1),
+                new MapObject(12, 34, 29, 1),
+                new MapObject(59 - 12, 5, 1, 7),
+                new MapObject(59 - 12, 17, 1, 23),
+                new MapObject(19, 0, 1, 6),
+                new MapObject(19, 5, 29, 1),
+                new MapObject(19, 11, 29, 1),
+                new MapObject(19, 17, 29, 1)
+            };
             tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 2000);
             Maps.Add(tmpMap);
             //-------------------------------------------------------------------------------------

@@ -27,6 +27,17 @@ namespace HAD_NEBOLI_SNAKE
         public int UnitWidth;
         public int UnitHeight;
 
+        /// <summary>
+        /// Vytvoří novou mapu s danými parametry
+        /// </summary>
+        /// <param name="Width">Šířka mapy</param>
+        /// <param name="Height">Výška mapy</param>
+        /// <param name="StartingX">Počáteční souřadnice X</param>
+        /// <param name="StartingY">Počáteční souřadnice Y</param>
+        /// <param name="StartingDir">Počáteční směr pohledu</param>
+        /// <param name="Obstacles">Seznam s překážkama, které se budou vykreslovat a zabijou hada při nárazu</param>
+        /// <param name="Edges">Jestli had umře při najetí do okraje mapy</param>
+        /// <param name="ScoreNext">Bodový požadavek pro dokončení mapy</param>
         public Map(int Width, int Height, int StartingX, int StartingY, Direction StartingDir, List<MapObject> Obstacles, bool Edges, int ScoreNext)
         {
             this.Width = Width;

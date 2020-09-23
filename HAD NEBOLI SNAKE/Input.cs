@@ -8,7 +8,6 @@ using System.Windows.Forms;
 
 namespace HAD_NEBOLI_SNAKE
 {
-    
         internal class Input
         {
             //list použitelných kláves
