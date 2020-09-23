@@ -31,7 +31,6 @@ namespace HAD_NEBOLI_SNAKE
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pbGameField = new System.Windows.Forms.PictureBox();
             this.labelScore = new System.Windows.Forms.Label();
             this.labelScore0 = new System.Windows.Forms.Label();
@@ -49,9 +48,15 @@ namespace HAD_NEBOLI_SNAKE
             this.labelControls0 = new System.Windows.Forms.Label();
             this.labelFoodCount = new System.Windows.Forms.Label();
             this.labelFoodCount0 = new System.Windows.Forms.Label();
+            this.pictureBoxHeart1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxHeart2 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxHeart3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbGameField)).BeginInit();
             this.panelDiffs.SuspendLayout();
             this.panelSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHeart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHeart2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHeart3)).BeginInit();
             this.SuspendLayout();
             // 
             // pbGameField
@@ -223,11 +228,41 @@ namespace HAD_NEBOLI_SNAKE
             this.labelFoodCount0.Text = "0";
             this.labelFoodCount0.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // pictureBoxHeart1
+            // 
+            this.pictureBoxHeart1.Image = global::HAD_NEBOLI_SNAKE.Properties.Resources.Heart;
+            this.pictureBoxHeart1.Location = new System.Drawing.Point(924, 114);
+            this.pictureBoxHeart1.Name = "pictureBoxHeart1";
+            this.pictureBoxHeart1.Size = new System.Drawing.Size(30, 30);
+            this.pictureBoxHeart1.TabIndex = 16;
+            this.pictureBoxHeart1.TabStop = false;
+            // 
+            // pictureBoxHeart2
+            // 
+            this.pictureBoxHeart2.Image = global::HAD_NEBOLI_SNAKE.Properties.Resources.Heart;
+            this.pictureBoxHeart2.Location = new System.Drawing.Point(960, 114);
+            this.pictureBoxHeart2.Name = "pictureBoxHeart2";
+            this.pictureBoxHeart2.Size = new System.Drawing.Size(30, 30);
+            this.pictureBoxHeart2.TabIndex = 17;
+            this.pictureBoxHeart2.TabStop = false;
+            // 
+            // pictureBoxHeart3
+            // 
+            this.pictureBoxHeart3.Image = global::HAD_NEBOLI_SNAKE.Properties.Resources.Heart;
+            this.pictureBoxHeart3.Location = new System.Drawing.Point(996, 114);
+            this.pictureBoxHeart3.Name = "pictureBoxHeart3";
+            this.pictureBoxHeart3.Size = new System.Drawing.Size(30, 30);
+            this.pictureBoxHeart3.TabIndex = 18;
+            this.pictureBoxHeart3.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1269, 620);
+            this.Controls.Add(this.pictureBoxHeart3);
+            this.Controls.Add(this.pictureBoxHeart2);
+            this.Controls.Add(this.pictureBoxHeart1);
             this.Controls.Add(this.labelFoodCount0);
             this.Controls.Add(this.labelFoodCount);
             this.Controls.Add(this.labelControls0);
@@ -237,7 +272,7 @@ namespace HAD_NEBOLI_SNAKE
             this.Controls.Add(this.labelScore);
             this.Controls.Add(this.labelScore0);
             this.Controls.Add(this.pbGameField);
-            this.Icon = Properties.Resources.Ikonka;
+            this.Icon = global::HAD_NEBOLI_SNAKE.Properties.Resources.Ikonka;
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "HAD NEBOLI SNAKE";
@@ -248,6 +283,9 @@ namespace HAD_NEBOLI_SNAKE
             this.panelDiffs.PerformLayout();
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHeart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHeart2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHeart3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,6 +310,9 @@ namespace HAD_NEBOLI_SNAKE
         private System.Windows.Forms.Label labelControls0;
         private System.Windows.Forms.Label labelFoodCount;
         private System.Windows.Forms.Label labelFoodCount0;
+        private System.Windows.Forms.PictureBox pictureBoxHeart1;
+        private System.Windows.Forms.PictureBox pictureBoxHeart2;
+        private System.Windows.Forms.PictureBox pictureBoxHeart3;
     }
 }
 

@@ -8,27 +8,86 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
 
 namespace HAD_NEBOLI_SNAKE
 {
     public partial class Form1 : Form
     {
-        private List<Circle> Snake = new List<Circle>();
-        private Circle food = new Circle();
+        // Had
+        private List<MapObject> Snake = new List<MapObject>();
+        // Jidlo
+        private MapObject food = new MapObject();
         // počet ticků které se při pohybování hadem přeskakujou, tim se snižuje jeho rychlost
-        private int tmpObt;
-        private Direction tmpDir;
-        private bool GameRunning = false;
-        private float UnitWidth;
-        private float UnitHeight;
+        private int tmpSkipC;
+        // Mapy
+        private List<Map> Maps = new List<Map>();
+        private int CurrentMap = 0;
 
-        private Difficulty[] diffs = new Difficulty[SettingsConst.Num_DifficultyCount];
+        private bool GameRunning = false;
+        private Direction tmpDir;
+        private List<Difficulty> Difficulties = new List<Difficulty>();
+        private int HeartCount = 3;
        
         public Form1()
         {
-            diffs[0] = new Difficulty("Lehká", 100, 4);
-            diffs[1] = new Difficulty("Střední", 125, 2);
-            diffs[2] = new Difficulty("Těžká", 150, 1);
+            // každý postup levelem zvýší obtížnost
+            int tmpScore = 100;
+            Difficulties.Add(new Difficulty("Nejlehčí", tmpScore, 2));
+            Difficulties.Add(new Difficulty("Lehká", tmpScore, 2));
+            Difficulties.Add(new Difficulty("Střední", tmpScore, 2));
+            Difficulties.Add(new Difficulty("Střednější", tmpScore, 2));
+            Difficulties.Add(new Difficulty("Těžká", tmpScore, 2));
+            Difficulties.Add(new Difficulty("Nejtěžší", tmpScore, 2));
+
+            //------- přidá první mapu 60x40, kde had začíná na pozici [7,4], bez překážek -------
+            List<MapObject> tmpObstacles = new List<MapObject>();
+            Map tmpMap;
+            tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 1000);
+            Maps.Add(tmpMap);
+
+            tmpObstacles = new List<MapObject>();
+            tmpObstacles.Add(new MapObject(14, 4, 1, 32));
+            tmpObstacles.Add(new MapObject(59 - 14, 4, 1, 32));
+            tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 1400);
+            Maps.Add(tmpMap);
+
+            tmpObstacles = new List<MapObject>();
+            tmpObstacles.Add(new MapObject(14, 24, 1, 10));
+            tmpObstacles.Add(new MapObject(30, 24, 1, 10));
+            tmpObstacles.Add(new MapObject(31, 33, 15, 1));
+            tmpObstacles.Add(new MapObject(59 - 14, 6, 1, 10));
+            tmpObstacles.Add(new MapObject(59 - 30, 6, 1, 10));
+            tmpObstacles.Add(new MapObject(14, 6, 15, 1));
+            tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 1700);
+            Maps.Add(tmpMap);
+
+            tmpObstacles = new List<MapObject>();
+            tmpObstacles.Add(new MapObject(14, 24, 1, 9));
+            tmpObstacles.Add(new MapObject(59-14, 24, 1, 9));
+            tmpObstacles.Add(new MapObject(14, 33, 32, 1));
+            tmpObstacles.Add(new MapObject(14, 7, 1, 9));
+            tmpObstacles.Add(new MapObject(59 - 14, 7, 1, 9));
+            tmpObstacles.Add(new MapObject(14, 6, 32, 1));
+            tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 1900);
+            Maps.Add(tmpMap);
+
+            tmpObstacles = new List<MapObject>();
+            tmpObstacles.Add(new MapObject(12, 0, 1, 23));
+            tmpObstacles.Add(new MapObject(12, 28, 1, 7));
+            tmpObstacles.Add(new MapObject(59-19, 34, 1, 6));
+            tmpObstacles.Add(new MapObject(12, 22, 29, 1));
+            tmpObstacles.Add(new MapObject(12, 28, 29, 1));
+            tmpObstacles.Add(new MapObject(12, 34, 29, 1));
+            tmpObstacles.Add(new MapObject(59-12, 5, 1, 7));
+            tmpObstacles.Add(new MapObject(59-12, 17, 1, 23));
+            tmpObstacles.Add(new MapObject(19, 0, 1, 6));
+            tmpObstacles.Add(new MapObject(19, 5, 29, 1));
+            tmpObstacles.Add(new MapObject(19, 11, 29, 1));
+            tmpObstacles.Add(new MapObject(19, 17, 29, 1));
+            tmpMap = new Map(60, 40, 7, 4, Direction.Down, tmpObstacles, true, 2000);
+            Maps.Add(tmpMap);
+            //-------------------------------------------------------------------------------------
 
             InitializeComponent();
 
@@ -39,63 +98,44 @@ namespace HAD_NEBOLI_SNAKE
             checkboxSettingsWalls.Text = SettingsConst.String_SettingWalls;
             pbGameField.Width = SettingsConst.Num_GameWidth;
             pbGameField.Height = SettingsConst.Num_GameHeight;
-            radioButtonSettings1.Text = diffs[0].Name;
-            radioButtonSettings2.Text = diffs[1].Name;
-            radioButtonSettings3.Text = diffs[2].Name;
+            radioButtonSettings1.Text = Difficulties[0].Name;
+            radioButtonSettings2.Text = Difficulties[1].Name;
+            radioButtonSettings3.Text = Difficulties[2].Name;
             //------------------------
 
             labelGameOver.Text = SettingsConst.String_Start;
+            panelSettings.Visible= false;
 
             // nastaví game timer
-            GameTimer.Interval = SettingsConst.Num_TickInterval;
+            // GameTimer.Interval = SettingsConst.Num_TickInterval;
+            GameTimer.Interval = 5;
             GameTimer.Tick += UpdateScreen;
             GameTimer.Start();
-        }
-        private void SetDifficulty()
-        {
-            if (radioButtonSettings1.Checked)
-            {
-                SettingsVar.Difficulty = 0;
-            }
-            else if (radioButtonSettings2.Checked)
-            {
-                SettingsVar.Difficulty = 1;
-            }
-            else if (radioButtonSettings3.Checked)
-            {
-                SettingsVar.Difficulty = 2;
-            }
-        }
-
-        private void HideStuff()
-        {
-            labelGameOver.Visible = false;
-            panelSettings.Enabled = false; // nebo Visible
-        }
-
-        private void ShowStuff()
-        {
-            labelGameOver.Visible = true;
-            panelSettings.Enabled = true;
         }
 
         private void StartGame()
         {
             GameRunning = true;
             HideStuff();
-            pbGameField.Select(); // odznačí nastavení aby se po konci hry omylem nezměnilo
+            pbGameField.Select(); // odznačí nastavení aby ho hráč po konci hry omylem nezměnil (zmáčknutím šipky/mezerníku)
+            if (HeartCount < 1)
+            {
+                HeartCount = 3;
+                UpdateHearts();
+            }
 
             // nastaví nastavení na defaultní - směr pohledu, skóre...
-            new SettingsVar();
-            SetDifficulty();
-            SettingsVar.Walls = checkboxSettingsWalls.Checked;
+            // new SettingsVar();
+            // nastaví nastavení na defaultní podle mapy
+            new SettingsVar(Maps[CurrentMap]);
+            //SetDifficulty();
+            //SettingsVar.Walls = checkboxSettingsWalls.Checked;
             tmpDir = SettingsVar.Direction;
-            UnitWidth = pbGameField.Width / SettingsVar.MapWidth;
-            UnitHeight = pbGameField.Height / SettingsVar.MapHeight;
+            //UnitWidth = pbGameField.Width / SettingsVar.MapWidth;
+            //UnitHeight = pbGameField.Height / SettingsVar.MapHeight;
 
-            // vytvoří novou část hada
-            Snake.Clear();
-            Circle head = new Circle { X = 10, Y = 5 };
+            // přidá hadovi hlavu
+            MapObject head = new MapObject(SettingsVar.StartingX, SettingsVar.StartingY);
             Snake.Add(head);
 
             labelFoodCount0.Text = SettingsVar.FoodCount.ToString();
@@ -103,28 +143,46 @@ namespace HAD_NEBOLI_SNAKE
             GenerateFood();
         }
 
-        // položí ovoce na náhodnou pozici
+        // položí ovoce na náhodnou pozici, pokud je na ní had tak zkusí znovu
         private void GenerateFood()
         {
-            bool isOutsideSnake = false;
-            while (isOutsideSnake != true)
+            bool IsColliding = true;
+            bool SnakeCol;
+            bool ObsCol;
+            while (IsColliding == true)
             {
+                SnakeCol = false;
+                ObsCol = false;
                 Random random = new Random();
-                food = new Circle { X = random.Next(0, SettingsVar.MapWidth), Y = random.Next(0, SettingsVar.MapHeight) };
-                foreach (Circle x in Snake)
+                food = new MapObject(random.Next(0, SettingsVar.MapWidth), random.Next(0, SettingsVar.MapHeight));
+
+                foreach (MapObject x in Snake)
                 {
-                    if (food.X != x.X || food.Y != x.Y)
+                    if (x.IsColliding(food.X, food.Y))
                     {
-                        isOutsideSnake = true;
+                        SnakeCol = true;
+                        break;
                     }
                 }
-            }
+                if (SnakeCol) continue;
 
+                if (Maps[CurrentMap].Obstacles.Count > 0) {
+                    foreach (MapObject x in Maps[CurrentMap].Obstacles)
+                    {
+                        if (x.IsColliding(food.X, food.Y))
+                        {
+                            ObsCol = true;
+                            break;
+                        }
+                    }
+                }
+                if (ObsCol) continue;
+                IsColliding = false;                
+            }
         }
 
         private void UpdateScreen(object sender, EventArgs e)
         {
-
             // zkontroluje jestli hra běží
             if (!GameRunning)
             {
@@ -144,7 +202,7 @@ namespace HAD_NEBOLI_SNAKE
                 if (Input.KeyPressed(Keys.Escape))
                 {
                     Input.ChangeState(Keys.Escape, false);
-                    EndGame();
+                    EndGame(false);
                 }
                 if ((Input.KeyPressed(Keys.Right) || Input.KeyPressed(Keys.D)) && SettingsVar.Direction != Direction.Left)
                     tmpDir = Direction.Right;
@@ -154,36 +212,36 @@ namespace HAD_NEBOLI_SNAKE
                     tmpDir = Direction.Up;
                 else if ((Input.KeyPressed(Keys.Down) || Input.KeyPressed(Keys.S)) && SettingsVar.Direction != Direction.Up)
                     tmpDir = Direction.Down;
-
+                
                 // přeskakování ticků pro úpravu obtížnosti
-                if (diffs[SettingsVar.Difficulty].SkipCount > 0)
+                if (Difficulties[SettingsVar.Difficulty].SkipCount > 0)
                 {
-                    if (tmpObt > 0)
+                    if (tmpSkipC > 0)
                     {
-                        tmpObt--;
+                        tmpSkipC--;
                         return;
                     }
                     else
                     {
-                        tmpObt = diffs[SettingsVar.Difficulty].SkipCount;
+                        tmpSkipC = Difficulties[SettingsVar.Difficulty].SkipCount;
                     }
                 }
                 SettingsVar.Direction = tmpDir;
                 MovePlayer();
             }
-
             pbGameField.Invalidate();
         }
 
         private void pbGameField_Paint(object sender, PaintEventArgs e)
         {
             Graphics canvas = e.Graphics;
-            int tmpWidth = Convert.ToInt32(UnitWidth);
-            int tmpHeight = Convert.ToInt32(UnitHeight);
-
             if (GameRunning)
             {
-                //Nakreslí hada
+                Maps[CurrentMap].SetCanvas(e.Graphics);
+                int UnitWidth = Maps[CurrentMap].UnitWidth;
+                int UnitHeight = Maps[CurrentMap].UnitHeight;
+                Maps[CurrentMap].Draw();
+                // nakreslí hada
                 for (int i = 0; i < Snake.Count; i++)
                 {
                     Brush snakeColour;
@@ -195,15 +253,15 @@ namespace HAD_NEBOLI_SNAKE
 
                     // vybarví kolečko
                     canvas.FillEllipse(snakeColour,
-                        new Rectangle(Snake[i].X * tmpWidth,
-                                      Snake[i].Y * tmpHeight,
-                                      tmpWidth, tmpHeight));
+                        new Rectangle(Snake[i].X * UnitWidth,
+                                      Snake[i].Y * UnitHeight,
+                                      UnitWidth, UnitHeight));
                 }
 
                 //Nakreslí jídlo
                 canvas.FillEllipse(Brushes.ForestGreen,
-                    new Rectangle(food.X * tmpWidth,
-                         food.Y * tmpHeight, tmpWidth, tmpHeight));
+                    new Rectangle(food.X * UnitWidth,
+                         food.Y * UnitHeight, UnitWidth, UnitHeight));
 
             }
         }
@@ -233,9 +291,10 @@ namespace HAD_NEBOLI_SNAKE
                     // detekuje kolize s okrajema. když nejsou zdi tak teleportuje na druhou stranu
                     if (Snake[i].X < 0 || Snake[i].Y < 0 || Snake[i].X >= SettingsVar.MapWidth || Snake[i].Y >= SettingsVar.MapHeight)
                     {
-                        if (SettingsVar.Walls)
+                        if (SettingsVar.Edges)
                         {
                             EndGame();
+                            return;
                         }
                         else
                         {
@@ -265,6 +324,7 @@ namespace HAD_NEBOLI_SNAKE
                            Snake[i].Y == Snake[j].Y)
                         {
                             EndGame();
+                            return;
                         }
                     }
 
@@ -272,8 +332,25 @@ namespace HAD_NEBOLI_SNAKE
                     if (Snake[0].X == food.X && Snake[0].Y == food.Y)
                     {
                         EatFood();
+                        if (SettingsVar.Score >= Maps[CurrentMap].ScoreNext)
+                        {
+                            LevelUp();
+                            return;
+                        }
                     }
 
+                    // detekuje kolize s překážkama, jestli nějaký sou
+                    if (Maps[CurrentMap].Obstacles.Count > 0)
+                    {
+                        foreach (MapObject Obstacle in Maps[CurrentMap].Obstacles)
+                        {
+                            if (Obstacle.IsColliding(Snake[i].X, Snake[i].Y))
+                            {
+                                EndGame();
+                                return;
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -305,21 +382,22 @@ namespace HAD_NEBOLI_SNAKE
         private void EatFood()
         {
             // přidá kruh k tělu
-            Circle circle = new Circle
-            {
-                X = Snake[Snake.Count - 1].X,
-                Y = Snake[Snake.Count - 1].Y
-            };
+            MapObject circle = new MapObject
+            (
+                X:Snake[Snake.Count - 1].X,
+                Y:Snake[Snake.Count - 1].Y
+            );
             Snake.Add(circle);
 
             // updatuje skóre
             int tmpScore = 0;
-            tmpScore += diffs[SettingsVar.Difficulty].ScoreInc;
-
-            if (SettingsVar.Walls)
+            tmpScore += Difficulties[SettingsVar.Difficulty].ScoreInc;
+            /*
+            if (SettingsVar.Edges)
             {
                 tmpScore *= SettingsConst.Num_WallsMultiplier;
-            }
+            }*/
+
             SettingsVar.Score += tmpScore;
 
             labelScore0.Text = SettingsVar.Score.ToString();
@@ -331,17 +409,107 @@ namespace HAD_NEBOLI_SNAKE
             labelFoodCount0.Text = SettingsVar.FoodCount.ToString();
         }
 
-        private void EndGame()
+        private void EndGame(bool death = true)
         {
             GameRunning = false;
+            Snake.Clear();
+            if (death)
+            {
+                HeartCount--;
+                if (HeartCount > 0)
+                {
+                    labelGameOver.Text = "JEJDA!\nZTRATIL JSI ŽIVOT\n\nSTISKNI ENTER PRO POKRAČOVÁNÍ";
+                }
+                if (HeartCount < 1)
+                {
+                    labelGameOver.Text = "KONEC HRY\n\nZTRATIL JSI VŠECHNY ŽIVOTY\n\nSTISKNI ENTER PRO NOVOU HRU";
+                    CurrentMap = 0;
+                    SettingsVar.Difficulty = 0;
+                }
+            }
+            else if (CurrentMap < 5)
+            {
+                labelGameOver.Text = "DOKONČIL JSI ÚROVEŇ:  " + CurrentMap + "\n\nSTISKNI ENTER PRO POKRAČOVÁNÍ";
+            }
+            else
+            {
+                labelGameOver.Text = "GRATULUJU!\n\n" + "DOKONČIL JSI VŠECHNY ÚROVNĚ\n\nSTISKNI ENTER PRO DALŠÍ HRU";
+                CurrentMap = 0;
+                SettingsVar.Difficulty = 0;
+            }
+            UpdateHearts(); // skryje srdíčka
+            if (HeartCount < 0)
+            {
+                CurrentMap = 0;
+                SettingsVar.Difficulty = 0;
+                HeartCount = 3;
+            }
 
-            string gameOver =   "KONEC HRY\n\n" +
+
+            /*
+            labelGameOver.Text = "KONEC HRY\n\n" +
                                 "TVOJE FINÁLNÍ SKÓRE JE:  " + SettingsVar.Score +
                                 "\n\nSNĚDL JSI:  " + SettingsVar.FoodCount + " JÍDLA" +
                                 "\n\nSTISKNI ENTER PRO DALŠÍ POKUS";
-            labelGameOver.Text = gameOver;
+            */
 
             ShowStuff();
+        }
+
+        private void LevelUp()
+        {
+            CurrentMap++;
+            SettingsVar.Difficulty++;
+            EndGame(false); // false neubere život
+        }
+
+        private void UpdateHearts()
+        {
+            switch (HeartCount)
+            {
+                case 0:
+                    pictureBoxHeart1.Image = Properties.Resources.HeartEmpty;
+                    break;
+                case 1:
+                    pictureBoxHeart2.Image = Properties.Resources.HeartEmpty;
+                    break;
+                case 2:
+                    pictureBoxHeart3.Image = Properties.Resources.HeartEmpty;
+                    break;
+                case 3:
+                    pictureBoxHeart1.Image = Properties.Resources.Heart;
+                    pictureBoxHeart2.Image = Properties.Resources.Heart;
+                    pictureBoxHeart3.Image = Properties.Resources.Heart;
+                    break;
+            }
+        }
+
+        private void HideStuff()
+        {
+            labelGameOver.Visible = false;
+            // panelSettings.Enabled = false; // nebo Visible
+        }
+
+        private void ShowStuff()
+        {
+            labelGameOver.Visible = true;
+            // panelSettings.Enabled = true;
+        }
+
+        private void SetDifficulty()
+        {
+            if (radioButtonSettings1.Checked)
+            {
+                SettingsVar.Difficulty = 0;
+            }
+            else if (radioButtonSettings2.Checked)
+            {
+                SettingsVar.Difficulty = 1;
+            }
+            else if (radioButtonSettings3.Checked)
+            {
+                SettingsVar.Difficulty = 2;
+            }
         }
     }
 }

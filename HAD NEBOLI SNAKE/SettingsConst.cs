@@ -15,13 +15,13 @@ namespace HAD_NEBOLI_SNAKE
 
         // hlášky a texty
         public const string String_WindowTitle = "HAD NEBOLI SNAKE";
-        public const string String_Controls = "Pohyb: WASD/ŠIPKY" + "\n" + "Konec Hry: ESC";
+        public const string String_Controls = "Pohyb: WASD/ŠIPKY\nKonec Hry: ESC";
         public const string String_Start = "Stiskni ENTER pro start hry";
         public const string String_SettingWalls = "Smrtelné okraje";
 
 
         // herní hodnotky
-        public const int Num_TickInterval = 10; // v ms
+        public const int Num_TickInterval = 1; // v ms
         public const int Num_DifficultyCount = 3; // pokud se změní todle, bude se muset změnit víc věcí :(
         public const int Num_WallsMultiplier = 4;
         public const int Num_GameWidth = 900;
