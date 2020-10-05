@@ -154,8 +154,11 @@ namespace HAD_NEBOLI_SNAKE
             MapObject head = new MapObject(SettingsVar.StartingX, SettingsVar.StartingY);
             Snake.Add(head);
 
-            labelFoodCount0.Text = SettingsVar.FoodCount.ToString();
-            labelScore0.Text = SettingsVar.Score.ToString();
+            // labelFoodCount0.Text = SettingsVar.FoodCount.ToString();
+            labelFoodCount0.Text = SettingsVar.FoodCount.ToString() + " / " + (Maps[CurrentMap].ScoreNext / Difficulties[CurrentMap].ScoreInc).ToString();
+            // labelScore0.Text = SettingsVar.Score.ToString();
+            labelScore0.Text = (CurrentMap + 1).ToString() + " / " + Maps.Count.ToString();
+
             GenerateFood();
         }
 
@@ -416,13 +419,14 @@ namespace HAD_NEBOLI_SNAKE
 
             SettingsVar.Score += tmpScore;
 
-            labelScore0.Text = SettingsVar.Score.ToString();
+            // labelScore0.Text = SettingsVar.Score.ToString();
 
             GenerateFood();
 
             // updatuje jídla
             SettingsVar.FoodCount++;
-            labelFoodCount0.Text = SettingsVar.FoodCount.ToString();
+            // labelFoodCount0.Text = SettingsVar.FoodCount.ToString();
+            labelFoodCount0.Text = SettingsVar.FoodCount.ToString() + " / " + (Maps[CurrentMap].ScoreNext / Difficulties[CurrentMap].ScoreInc).ToString();
         }
 
         private void EndGame(bool death = true)
@@ -478,6 +482,7 @@ namespace HAD_NEBOLI_SNAKE
         {
             CurrentMap++;
             SettingsVar.Difficulty++;
+            labelScore0.Text = CurrentMap.ToString() + " / " + Maps.Count.ToString();
             EndGame(false); // false neubere život
         }
 
@@ -514,6 +519,7 @@ namespace HAD_NEBOLI_SNAKE
             // panelSettings.Enabled = true;
         }
 
+        /*
         private void SetDifficulty()
         {
             if (radioButtonSettings1.Checked)
@@ -528,6 +534,6 @@ namespace HAD_NEBOLI_SNAKE
             {
                 SettingsVar.Difficulty = 2;
             }
-        }
+        }*/
     }
 }

@@ -75,16 +75,16 @@ namespace HAD_NEBOLI_SNAKE
             this.labelScore.Font = new System.Drawing.Font("Verdana", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelScore.Location = new System.Drawing.Point(916, 10);
             this.labelScore.Name = "labelScore";
-            this.labelScore.Size = new System.Drawing.Size(154, 45);
+            this.labelScore.Size = new System.Drawing.Size(183, 45);
             this.labelScore.TabIndex = 0;
-            this.labelScore.Text = "Skóre:";
+            this.labelScore.Text = "Úroveň:";
             // 
             // labelScore0
             // 
             this.labelScore0.Font = new System.Drawing.Font("Verdana", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScore0.Location = new System.Drawing.Point(1070, 13);
+            this.labelScore0.Location = new System.Drawing.Point(1105, 13);
             this.labelScore0.Name = "labelScore0";
-            this.labelScore0.Size = new System.Drawing.Size(187, 45);
+            this.labelScore0.Size = new System.Drawing.Size(152, 45);
             this.labelScore0.TabIndex = 0;
             this.labelScore0.Text = "0";
             this.labelScore0.TextAlign = System.Drawing.ContentAlignment.TopRight;
